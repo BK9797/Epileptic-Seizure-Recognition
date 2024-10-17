@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
 import pickle
+from tensorflow.keras.models import load_model
 
-# Load the trained model
-with open('my_model.pkl', 'rb') as f:
-    model = pickle.load(f)
+# Load the model
+model = load_model('model.h5')
+
 
 # Title and description
 st.title("Epileptic Seizure Recognition")
