@@ -4,7 +4,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-with open('/Users/bishoykamel/Documents/Study/Git/Epileptic-Seizure-Recognition/Epileptic-Seizure-Recognition/model.pk', 'rb') as f:
+with open('model.pk', 'rb') as f:
     model = pickle.load(f)
 
 # Title and description
@@ -21,13 +21,9 @@ def user_input_features():
 # Collect input data from user
 input_data = user_input_features()
 
-# Feature scaling (if needed)
-scaler = StandardScaler()  # Ensure the scaler matches the one used in training
-input_data_scaled = scaler.fit_transform(input_data)  # Scale input for prediction
-
 # Make prediction
-prediction = model.predict(input_data_scaled)
-prediction_proba = model.predict_proba(input_data_scaled)
+prediction = model.predict(input_data)
+prediction_proba = model.predict_proba(input_data)
 
 # Display results
 st.write(f"Prediction: {'Seizure' if prediction[0] == 1 else 'No Seizure'}")
