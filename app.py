@@ -4,7 +4,7 @@ import pickle
 from sklearn.preprocessing import StandardScaler
 
 # Load the trained model
-with open('model.pk', 'rb') as f:
+with open('my_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Title and description
