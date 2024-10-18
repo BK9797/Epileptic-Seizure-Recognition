@@ -3,14 +3,14 @@ import pandas as pd
 import pickle
 from tensorflow.keras.models import load_model
 
-@st.cache_resource
 def load_model():
-    # Load the model once and reuse it across sessions
-    with open('model.pkl', 'rb') as file:
-        return pickle.load(file)
+    try:
+        with open('model.pkl', 'rb') as file:
+            return pickle.load(file)
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
 
 model = load_model()
-
 
 # Title and description
 st.title("Epileptic Seizure Recognition")
