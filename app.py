@@ -65,4 +65,4 @@ if st.button('Submit'):
     else:
         st.markdown(f"<span style='color:green;'>Prediction: No Seizure</span>", unsafe_allow_html=True)
     
-    st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
+    #st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
