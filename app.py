@@ -3,8 +3,8 @@ import pandas as pd
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization, Dropout
 
-# Assuming X_train.shape[1] is 178 for now (you should adjust this based on your actual data)
-n_features = 178
+# Specify which 10 features you want to collect
+input_indices = [1, 15, 30, 45, 60, 75, 90, 105, 120, 135]
 
 @st.cache_resource
 def create_model():
@@ -12,7 +12,7 @@ def create_model():
     model = Sequential()
 
     # Input layer
-    model.add(Dense(256, input_shape=(n_features,), activation='elu'))
+    model.add(Dense(256, input_shape=(len(input_indices),), activation='elu'))
     model.add(BatchNormalization())  # Batch Normalization after input layer
     model.add(Dropout(0.2))  # Dropout after Batch Normalization
 
@@ -41,19 +41,24 @@ model = create_model()
 st.title("Epileptic Seizure Recognition")
 st.write("This app uses a trained model to predict if a seizure is occurring based on input data.")
 
-# Input function
+# Input function for specific features
 def user_input_features():
-    features = [st.number_input(f'Feature {i+1}', value=0.0) for i in range(n_features)]
-    input_data = pd.DataFrame([features], columns=[f'Feature {i+1}' for i in range(n_features)])
+    features = []
+    for idx in input_indices:
+        feature_value = st.number_input(f'Feature x{idx}', value=0.0)
+        features.append(feature_value)
+    input_data = pd.DataFrame([features], columns=[f'Feature x{idx}' for idx in input_indices])
     return input_data
 
 # Collect input data from user
 input_data = user_input_features()
 
-# Make prediction
-prediction_proba = model.predict(input_data)
-prediction = (prediction_proba > 0.5).astype(int)  # Convert probabilities to class prediction (binary)
+# Create a submit button
+if st.button('Submit'):
+    # Make prediction
+    prediction_proba = model.predict(input_data)
+    prediction = (prediction_proba > 0.5).astype(int)  # Convert probabilities to class prediction (binary)
 
-# Display results
-st.write(f"Prediction: {'Seizure' if prediction[0] == 1 else 'No Seizure'}")
-st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
+    # Display results
+    st.write(f"Prediction: {'Seizure' if prediction[0] == 1 else 'No Seizure'}")
+    st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
