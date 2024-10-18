@@ -3,8 +3,13 @@ import pandas as pd
 import pickle
 from tensorflow.keras.models import load_model
 
-# Load the model
-model = load_model('model.h5')
+@st.cache_resource
+def load_model():
+    # Load the model once and reuse it across sessions
+    with open('model.pkl', 'rb') as file:
+        return pickle.load(file)
+
+model = load_model()
 
 
 # Title and description
