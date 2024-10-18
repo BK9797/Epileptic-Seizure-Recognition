@@ -4,4 +4,3 @@ numpy
 scikit-learn
 tensorflow
 keras
-pickle
