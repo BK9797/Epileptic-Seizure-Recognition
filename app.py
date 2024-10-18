@@ -59,6 +59,10 @@ if st.button('Submit'):
     prediction_proba = model.predict(input_data)
     prediction = (prediction_proba > 0.5).astype(int)  # Convert probabilities to class prediction (binary)
 
-    # Display results
-    st.write(f"Prediction: {'Seizure' if prediction[0] == 1 else 'No Seizure'}")
-    #st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
+    # Display results with color based on prediction
+    if prediction[0] == 1:
+        st.markdown(f"<span style='color:red;'>Prediction: Seizure</span>", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<span style='color:green;'>Prediction: No Seizure</span>", unsafe_allow_html=True)
+    
+    st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
