@@ -61,4 +61,4 @@ if st.button('Submit'):
 
     # Display results
     st.write(f"Prediction: {'Seizure' if prediction[0] == 1 else 'No Seizure'}")
-    st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
+    #st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
