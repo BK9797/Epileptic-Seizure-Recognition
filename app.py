@@ -62,9 +62,7 @@ if st.button('Submit'):
     # Display results with color based on prediction
     if prediction[0] == 1:
         st.markdown(f"<span style='color:red;'>Prediction: Seizure</span>", unsafe_allow_html=True)
-        st.image('seizure_image.png', caption='Seizure Detected', use_column_width=True)  # Add your seizure image here
+        st.image('seizure_image.png', caption='Seizure Detected', width=300)  # Set the width to 300 pixels
     else:
         st.markdown(f"<span style='color:green;'>Prediction: No Seizure</span>", unsafe_allow_html=True)
-        st.image('no_seizure_image.png', caption='No Seizure Detected', use_column_width=True)  # Add your no-seizure image here
-
-    st.write(f"Probability: {prediction_proba[0][0] * 100:.2f}% seizure, {(1 - prediction_proba[0][0]) * 100:.2f}% no seizure")
+        st.image('no_seizure_image.png', caption='No Seizure Detected', width=300)  # Set the width to 300 pixels
